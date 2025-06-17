@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import type { Employee } from '../shared/types/employee';
 import { getCollaborators } from '../shared/services/collaboratorService';
-import { Alert, Box, CircularProgress, IconButton, Avatar } from '@mui/material';
+import { Alert, Box, CircularProgress} from '@mui/material';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
-import { Cabecalho } from '../shared/components/cabecalho/Cabecalho';
-import { TabelaColaboradores } from '../shared/components/tabela-colaboradores/TabelaColaboradores';
+import { Cabecalho, SectionHeader, TabelaColaboradores } from '../shared/components';
+import { useNavigate } from 'react-router-dom';
 
-export function CollaboratorList() {
+export function ListarColaboradores() {
+  const navigate = useNavigate();
   const [collaborators, setCollaborators] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,7 @@ export function CollaboratorList() {
   }, []);
 
   const handleNewCollaboratorClick = () => {
-    console.log('Clicou em Novo Colaborador');
+    navigate('/AdicionarColaborador');
     
   };
 
@@ -50,18 +51,15 @@ export function CollaboratorList() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-        <IconButton>
-          <Avatar alt="Renato Lopes" />
-        </IconButton>
-      </Box>
 
-      <Cabecalho
+      <Cabecalho/>
+
+      <SectionHeader
         title="Colaboradores" 
         actionButtonText="Novo Colaborador"
         onActionButtonClick={handleNewCollaboratorClick}
       />
-
+      
       <TabelaColaboradores collaborators={collaborators} />
 
     </DashboardLayout>

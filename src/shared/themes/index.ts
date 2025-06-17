@@ -10,6 +10,10 @@ export const IndexTheme = createTheme({
             contrastText: '#ffffff',
         },
 
+        secondary:{
+            main: '#1BB55C'
+        },
+
         background: {
             default: '#ffffff'
         },
