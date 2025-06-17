@@ -1,12 +1,16 @@
-import { CollaboratorList } from './pages/CollaboratorList';
-import { CssBaseline } from '@mui/material'; // Normaliza o CSS
+import { CssBaseline, ThemeProvider } from '@mui/material'; // Normaliza o CSS
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './routes';
+import { IndexTheme } from './shared/themes';
 
 function App() {
   return (
-    <>
-      <CssBaseline />
-      <CollaboratorList/>
-    </>
+    <ThemeProvider theme = {IndexTheme}>
+      <BrowserRouter>
+        <CssBaseline />
+        <AppRoutes />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

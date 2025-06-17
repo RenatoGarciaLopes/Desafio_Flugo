@@ -1,6 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase.ts';
-import type { Employee } from '../types/employee';
+import type { Employee } from '../types/employee.ts';
 
 export async function getCollaborators(): Promise<Employee[]> {
     const querySnapshot = await getDocs(collection(db, "collaborators"));
