@@ -100,7 +100,10 @@ export function RegistrarColaboradores() {
                 {submitError && (<Alert severity="error" sx={{ mt: 2 }}>{submitError}</Alert>)}
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
-                  <Button variant="text" disabled={activeStep === 0 || isSubmitting} onClick={handleBack}>
+                  <Button variant="text"
+                   disabled={activeStep === 0 || isSubmitting} 
+                   onClick={handleBack} 
+                   sx={{ color: 'text.primary', fontWeight:'bold' }}>
                     Voltar
                   </Button>
                   <Button variant="contained" type="submit" disabled={isSubmitting}>
