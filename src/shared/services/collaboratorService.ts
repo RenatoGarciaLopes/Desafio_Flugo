@@ -1,4 +1,3 @@
-// src/shared/services/collaboratorService.ts
 import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase.ts';
 import type { Employee } from '../types/employee.ts';

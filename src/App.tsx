@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'; // Normaliza o CSS
+import { CssBaseline, ThemeProvider } from '@mui/material'; 
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes';
 import { IndexTheme } from './shared/themes';

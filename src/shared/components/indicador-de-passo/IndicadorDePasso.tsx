@@ -1,4 +1,4 @@
-// src/shared/components/indicador-de-passo/IndicadorDePasso.tsx
+
 import { Box, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check'; 
 import { styled } from '@mui/system'; 
@@ -18,16 +18,15 @@ const StyledIcon = styled(Box)(({ theme }) => ({
     '&.active': {
         backgroundColor: theme.palette.primary.main,
         boxShadow: (theme.shadows as string[])[3],
-        transform: 'scale(1.1)', // Efeito de "aproximar" (pop/escala)
+        transform: 'scale(1.1)', 
     },
     '&.completed': {
         backgroundColor: theme.palette.primary.main,
     },
-    // Adiciona uma classe para quando o formulário está completamente finalizado
+    
     '&.formCompleted': {
         backgroundColor: theme.palette.primary.main,
-        // Você pode adicionar um transform diferente ou outro efeito se quiser um "pop" final
-        // transform: 'scale(1.2)', 
+        
     },
 
     '& .MuiSvgIcon-root': {
@@ -58,7 +57,7 @@ const StyledConnector = styled(Box)(({ theme }) => ({
     '&.completed': {
         backgroundColor: theme.palette.primary.main, 
     },
-    // Estilo para o conector quando o formulário está completamente finalizado
+    
     '&.formCompleted': {
         backgroundColor: theme.palette.primary.main,
     },
@@ -69,10 +68,6 @@ const StyledConnector = styled(Box)(({ theme }) => ({
 }));
 
 
-// Defina os passos fora do componente para evitar recriação desnecessária
-// IMPORTANTE: Se você moveu steps para um arquivo de constantes (EMPLOYEE_FORM_STEPS),
-// você precisaria importá-lo aqui também, ou passá-lo como prop.
-// Por enquanto, vamos assumir que está definido localmente ou que o hook o provê.
 const steps = ['Infos Básicas', 'Infos Profissionais']; 
 
 interface IndicadorDePassoProps {
@@ -92,29 +87,28 @@ export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep, isFormComp
     let textColor = theme.palette.text.secondary; 
     let fontWeight = 'regular';
 
-    // LÓGICA PRINCIPAL DA ANIMAÇÃO:
-    // 1. Se o formulário está CONCLUÍDO, todos os ícones são CheckIcon
+    
     if (isFormCompleted) { 
         iconComponent = <CheckIcon />;
-        statusClass = 'completed formCompleted'; // Adiciona a classe 'formCompleted'
+        statusClass = 'completed formCompleted'; 
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 2. Se não está concluído, mas o passo já foi COMPLETO (passou por ele)
+    
     else if (isCompleted) {
         iconComponent = <CheckIcon />;
         statusClass = 'completed';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 3. Se é o passo ATIVO
+    
     else if (isActive) {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'active';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 4. Se é um passo FUTURO
+
     else {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'inactive';
@@ -145,7 +139,7 @@ export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep, isFormComp
             
             {!isLastStep && (
                 <StyledConnector
-                    // O conector também fica verde se o passo estiver completo OU se o formulário inteiro estiver completo
+                    
                     className={isCompleted || isFormCompleted ? 'completed' : (isActive ? 'active' : '')} 
                 />
             )}

@@ -1,4 +1,4 @@
-// src/shared/hooks/useMultiStepForm.ts
+
 import { useState } from 'react';
 import { useForm, type UseFormReturn, type FieldValues, type Path, type DefaultValues,} from 'react-hook-form'; 
 import { EMPLOYEE_FORM_STEPS, EMPLOYEE_FORM_FIELDS_BY_STEP } from '../constants/employeeForm';
@@ -10,7 +10,7 @@ interface MultiStepFormHookReturn<T extends FieldValues> {
   handleBack: () => void;
   steps: string[];
   isLastStep: boolean;
-  resetToFirstStep: () => void; // <--- Certifique-se de que esta linha está presente na interface!
+  resetToFirstStep: () => void; 
 }
 
 export const useMultiStepForm = <T extends FieldValues>(
