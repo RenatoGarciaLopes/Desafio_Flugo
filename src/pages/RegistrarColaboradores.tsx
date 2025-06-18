@@ -1,22 +1,26 @@
 
 import { useState } from 'react';
-import { FormProvider } from 'react-hook-form'; 
+import { FormProvider } from 'react-hook-form'; // Continua sendo necessário para FormProvider
+
+
 
 import { useMultiStepForm } from '../shared/hooks/useMultiStepForm';
-import { Box, Button, CircularProgress, Alert } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
 import type { Employee } from '../shared/types/employee';
 import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavegacao, IndicadorDePasso, Cabecalho, ModalValidacao } from '../shared/components';
 
 import { addCollaborator } from '../shared/services/collaboratorService';
+import { useNotification } from '../shared/contexts/NotificationContext';
 
 export function RegistrarColaboradores() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isFormCompleted, setIsFormCompleted] = useState(false);
 
+  const { showNotification } = useNotification();
 
   const {
     activeStep,
@@ -34,7 +38,7 @@ export function RegistrarColaboradores() {
 
   const onSubmit = async (data: Employee) => {
     setIsSubmitting(true);
-    setSubmitError(null);
+
     try {
       const { id, ...dataToSave } = data;
       await addCollaborator(dataToSave);
@@ -42,9 +46,10 @@ export function RegistrarColaboradores() {
       setIsFormCompleted(true);
       setShowSuccessModal(true);
 
+      //showNotification({ message: 'Colaborador registrado com sucesso!', severity: 'success' }); 
 
     } catch (error) {
-      setSubmitError('Ocorreu um erro ao salvar. Tente novamente.');
+      showNotification({ message: 'Ocorreu um erro ao registrar o colaborador. Tente novamente.', severity: 'error', duration: -1 }); 
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -95,7 +100,7 @@ export function RegistrarColaboradores() {
                 {activeStep === 0 && <Formulario />}
                 {activeStep === 1 && <FormularioProfissional />}
 
-                {submitError && (<Alert severity="error" sx={{ mt: 2 }}>{submitError}</Alert>)}
+              
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
                   <Button variant="text"
@@ -134,7 +139,7 @@ export function RegistrarColaboradores() {
               {activeStep === 0 && <Formulario />}
               {activeStep === 1 && <FormularioProfissional />}
 
-              {submitError && (<Alert severity="error" sx={{ mt: 2 }}>{submitError}</Alert>)}
+              
 
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
                 <Button variant="text" 

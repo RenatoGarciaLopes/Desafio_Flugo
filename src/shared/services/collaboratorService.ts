@@ -1,6 +1,27 @@
+// src/shared/services/collaboratorService.ts
 import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase.ts';
 import type { Employee } from '../types/employee.ts';
+
+// Função auxiliar para adicionar timeout a uma promessa
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      // Rejeita com um erro específico de timeout
+      reject(new Error('Tempo limite da requisição excedido. Verifique sua conexão.'));
+    }, ms);
+
+    promise
+      .then(res => {
+        clearTimeout(timeoutId); // Limpa o timeout se a promessa resolver
+        resolve(res);
+      })
+      .catch(err => {
+        clearTimeout(timeoutId); // Limpa o timeout se a promessa rejeitar
+        reject(err);
+      });
+  });
+}
 
 /**
  * Busca todos os colaboradores no banco de dados.
@@ -8,15 +29,17 @@ import type { Employee } from '../types/employee.ts';
  */
 export async function getCollaborators(): Promise<Employee[]> {
   try {
-    const querySnapshot = await getDocs(collection(db, "collaborators"));
+    // Aplica o timeout à operação getDocs
+    const querySnapshot = await withTimeout(getDocs(collection(db, "collaborators")), 15000); // Ex: 15 segundos de timeout
     const collaborators = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
+      id: doc.id,
+      ...doc.data(),
     })) as Employee[];
     return collaborators;
   } catch (error) {
     console.error("Erro ao buscar colaboradores: ", error);
-    throw new Error('Falha ao buscar colaboradores.');
+    // Propaga o erro (incluindo o de timeout)
+    throw error; // Use 'throw error' para manter o tipo de erro original
   }
 }
 
@@ -27,11 +50,13 @@ export async function getCollaborators(): Promise<Employee[]> {
  */
 export async function addCollaborator(collaboratorData: Omit<Employee, 'id'>): Promise<void> {
   try {
-    await addDoc(collection(db, 'collaborators'), collaboratorData);
+    // Aplica o timeout à operação addDoc
+    await withTimeout(addDoc(collection(db, 'collaborators'), collaboratorData), 10000); // Ex: 10 segundos de timeout
     console.log('Colaborador adicionado com sucesso!');
   } catch (error) {
     console.error("Erro ao adicionar colaborador: ", error);
-    throw new Error('Falha ao registrar o colaborador.');
+    // Propaga o erro (incluindo o de timeout)
+    throw error; // Use 'throw error' para manter o tipo de erro original
   }
 }
 
@@ -43,11 +68,13 @@ export async function addCollaborator(collaboratorData: Omit<Employee, 'id'>): P
 export async function updateCollaborator(id: string, dataToUpdate: Partial<Employee>): Promise<void> {
   try {
     const collaboratorRef = doc(db, 'collaborators', id);
-    await updateDoc(collaboratorRef, dataToUpdate);
+    // Aplica o timeout à operação updateDoc
+    await withTimeout(updateDoc(collaboratorRef, dataToUpdate), 10000); // Ex: 10 segundos de timeout
     console.log('Colaborador atualizado com sucesso!');
   } catch (error) {
     console.error("Erro ao atualizar colaborador: ", error);
-    throw new Error('Falha ao atualizar o colaborador.');
+    // Propaga o erro (incluindo o de timeout)
+    throw error; // Use 'throw error' para manter o tipo de erro original
   }
 }
 
@@ -58,10 +85,12 @@ export async function updateCollaborator(id: string, dataToUpdate: Partial<Emplo
 export async function deleteCollaborator(id: string): Promise<void> {
   try {
     const collaboratorRef = doc(db, 'collaborators', id);
-    await deleteDoc(collaboratorRef);
+    // Aplica o timeout à operação deleteDoc
+    await withTimeout(deleteDoc(collaboratorRef), 10000); // Ex: 10 segundos de timeout
     console.log('Colaborador deletado com sucesso!');
   } catch (error) {
     console.error("Erro ao deletar colaborador: ", error);
-    throw new Error('Falha ao deletar o colaborador.');
+    // Propaga o erro (incluindo o de timeout)
+    throw error; // Use 'throw error' para manter o tipo de erro original
   }
 }

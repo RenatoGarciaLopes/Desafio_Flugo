@@ -15,18 +15,19 @@ export const ModalValidacao = ({ open, onClose, onRegisterNew }: ModalValidacaoP
   const navigate = useNavigate();
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open}
+      disableEscapeKeyDown={true}>
       <DialogTitle>Sucesso!</DialogTitle>
-      <DialogContent sx={{ textAlign: 'center', py: 3 }}> 
-        
-        <CheckCircleOutlineIcon 
-          color="success" 
-          sx={{ fontSize: 80, mb: 2 }} 
+      <DialogContent sx={{ textAlign: 'center', py: 3 }}>
+
+        <CheckCircleOutlineIcon
+          color="success"
+          sx={{ fontSize: 80, mb: 2 }}
         />
-        <Typography variant="h6" component="p" gutterBottom> 
+        <Typography variant="h6" component="p" gutterBottom>
           Colaborador cadastrado com sucesso!
         </Typography>
-        <Typography variant="body2" color="text.secondary"> 
+        <Typography variant="body2" color="text.secondary">
           Você pode cadastrar outro ou retornar ao dashboard.
         </Typography>
       </DialogContent>
@@ -50,7 +51,7 @@ export const ModalValidacao = ({ open, onClose, onRegisterNew }: ModalValidacaoP
         <Button
           variant="contained"
           onClick={() => {
-            onRegisterNew(); 
+            onRegisterNew();
           }}
         >
           Cadastrar outro colaborador
