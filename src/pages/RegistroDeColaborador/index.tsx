@@ -1,89 +1,122 @@
 import { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form'; // 1. IMPORTE O FORMPROVIDER
-import { Box, Stepper, Step, StepLabel, Button, Typography, Paper } from '@mui/material';
+import { useForm, FormProvider } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Typography, Paper, CircularProgress, Alert } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import CircleIcon from '@mui/icons-material/Circle';
+
 import { DashboardLayout } from '../../shared/layouts/DashboardLayout';
 import type { Employee } from '../../shared/types/employee';
-import { Cabecalho, Formulario } from '../../shared/components';
+import { Formulario, FormularioProfissional, BarraDeProgresso} from '../../shared/components';
+
+import { BreadcrumbsNavegacao } from '../../shared/components';
+
+import { addCollaborator } from '../../shared/services/collaboratorService';
 
 const steps = ['Infos Básicas', 'Infos Profissionais'];
+const fieldsByStep: (keyof Employee)[][] = [['name', 'email'], ['department']];
+
+const IndicadorDePasso = ({ stepIndex, activeStep }: { stepIndex: number, activeStep: number }) => {
+  const isCompleted = stepIndex < activeStep;
+  const isActive = stepIndex === activeStep;
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      {isCompleted ? <CheckCircleIcon color="primary" /> : isActive ? <CircleIcon sx={{ fontSize: 24, color: 'primary.main' }} /> : <RadioButtonUncheckedIcon color="disabled" />}
+      <Typography variant="body1" sx={{ ml: 2, fontWeight: isActive || isCompleted ? 'bold' : 'regular', color: isActive ? 'text.primary' : 'text.secondary' }}>
+        {steps[stepIndex]}
+      </Typography>
+    </Box>
+  );
+};
 
 export function AddColaboradores() {
   const [activeStep, setActiveStep] = useState(0);
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
   const methods = useForm<Employee>({
-    defaultValues: {
-      name: '',
-      email: '',
-      status: 'Ativo',
-    },
+    defaultValues: { name: '', email: '', department: '', avatarUrl: '', status: 'Ativo' },
   });
 
-  // 3. ATUALIZE A FUNÇÃO handleNext PARA VALIDAR
   const handleNext = async () => {
-    // Valida os campos do passo atual antes de prosseguir
-    const isStepValid = await methods.trigger(['name', 'email', 'status']);
-
-    if (isStepValid) {
-      setActiveStep((prev) => prev + 1);
-    }
+    const isStepValid = await methods.trigger(fieldsByStep[activeStep]);
+    if (isStepValid) setActiveStep((prev) => prev + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prev) => prev - 1);
   };
 
-  const onSubmit = (data: Employee) => {
-    console.log('Dados prontos para enviar:', data);
-    // Aqui faremos o envio para o Firebase
+  const onSubmit = async (data: Employee) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { id, ...dataToSave } = data;
+      await addCollaborator(dataToSave);
+      setTimeout(() => navigate('/dashboard'), 1000);
+    } catch (error) {
+      setSubmitError('Ocorreu um erro ao salvar. Tente novamente.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
+  const progressValue = activeStep === 0 ? 0 : (activeStep / (steps.length - 1)) * 100;
+
   return (
+    
     <DashboardLayout>
-        <Cabecalho/>
-
-      <FormProvider {...methods}>
-        <Paper sx={{ p: 4 }}>
-          <Typography variant="h4" sx={{ mb: 4 }}>Cadastrar Colaborador</Typography>
-          <Box sx={{ display: 'flex' }}>
-            <Stepper activeStep={activeStep} orientation="vertical" sx={{ mr: 4 }}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-
-            {/* O onSubmit agora usa methods.handleSubmit */}
-            <form onSubmit={methods.handleSubmit(onSubmit)} style={{ width: '100%' }}>
-              {activeStep === 0 && (
-                <Formulario />
-              )}
-              {activeStep === 1 && (
-                <p>Formulário de Infos Profissionais</p>
-              )}
-
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
-                <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-                  Voltar
-                </Button>
-
-                {/* 5. AJUSTE NA LÓGICA DO BOTÃO */}
-                {activeStep === steps.length - 1 ? (
-                  // Se for o último passo, o botão é do tipo "submit"
-                  <Button variant="contained" type="submit">
-                    Concluir
-                  </Button>
-                ) : (
-                  // Caso contrário, ele apenas chama a função para validar e avançar
-                  <Button variant="contained" onClick={handleNext}>
-                    Próximo
-                  </Button>
-                )}
+     <BreadcrumbsNavegacao/>
+      <BarraDeProgresso valor={progressValue} />
+      
+      <Paper sx={{ p: 4, mt: 2, border: '1px solid #e0e0e0', borderRadius: 2 }}>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {/* ✅ A MÁGICA ACONTECE AQUI: Layout com Box e Flexbox */}
+            <Box sx={{ 
+              display: 'flex', 
+              gap: 5, // Define o espaçamento entre as colunas
+              flexDirection: { xs: 'column', md: 'row' } // Colunas em telas pequenas, linha em telas médias+
+            }}>
+              {/* Coluna da Esquerda (Side Menu) */}
+              <Box sx={{ flex: '1 1 25%' }}> {/* Ocupa 25% da largura em telas médias+ */}
+                {steps.map((label, index) => (
+                  <IndicadorDePasso key={label} stepIndex={index} activeStep={activeStep} />
+                ))}
               </Box>
-            </form>
-          </Box>
-        </Paper>
-      </FormProvider>
+
+              {/* Coluna da Direita (Formulário) */}
+              <Box sx={{ flex: '1 1 75%' }}> {/* Ocupa 75% da largura em telas médias+ */}
+                {activeStep === 0 && <Formulario />}
+                {activeStep === 1 && <FormularioProfissional />}
+
+                {submitError && (<Alert severity="error" sx={{ mt: 2 }}>{submitError}</Alert>)}
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
+                  <Button variant="text" disabled={activeStep === 0 || isSubmitting} onClick={handleBack}>
+                    Voltar
+                  </Button>
+                  
+                  {activeStep === steps.length - 1 ? (
+                    <Button variant="contained" type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Concluir'}
+                    </Button>
+                  ) : (
+                    <Button variant="contained" onClick={handleNext}>
+                      Próximo
+                    </Button>
+                  )}
+                </Box>
+              </Box>
+            </Box>
+          </form>
+        </FormProvider>
+      </Paper>
     </DashboardLayout>
   );
 }
