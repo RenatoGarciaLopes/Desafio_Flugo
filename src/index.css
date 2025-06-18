@@ -1,4 +1,12 @@
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* Mantém o fundo branco */
+    -webkit-text-fill-color: #000000 !important; /* Garante que o texto preenchido seja preto */
+    color: #000000 !important; /* NOVO: Adiciona a propriedade 'color' com !important */
+    transition: background-color 5000s ease-in-out 0s; /* Atraso na transição do fundo */
+}
 html,
 body,
 #root {
@@ -8,7 +16,6 @@ body,
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

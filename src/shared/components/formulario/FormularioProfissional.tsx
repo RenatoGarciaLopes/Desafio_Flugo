@@ -14,19 +14,25 @@ const departments = [
 ];
 
 export const FormularioProfissional = () => {
-  const { register, formState: { errors }, control } = useFormContext<Employee>();
+
+  const { formState: { errors, touchedFields, isSubmitted }, control, register } = useFormContext<Employee>(); // Incluído 'register' para o TextField
+
+  // Lógica para determinar se o erro deve ser exibido
+  // O erro só é exibido se o campo for inválido E (ele foi tocado OU o formulário foi submetido)
+  const showErrorDepartment = !!errors.department && (touchedFields.department || isSubmitted);
+  const showErrorAvatarUrl = !!errors.avatarUrl && (touchedFields.avatarUrl || isSubmitted); // Para o campo opcional também
+
 
   return (
     <Box>
       <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold' }}>Informações Profissionais</Typography>
 
-      {/* Usando o Controller para integrar o Select do MUI com o react-hook-form */}
       <Controller
         name="department"
         control={control}
         rules={{ required: 'O departamento é obrigatório' }}
         render={({ field }) => (
-          <FormControl fullWidth error={!!errors.department}>
+          <FormControl fullWidth error={showErrorDepartment}>
             <InputLabel id="department-select-label">Selecione um departamento</InputLabel>
             <Select
               {...field}
@@ -53,8 +59,8 @@ export const FormularioProfissional = () => {
         label="URL do Avatar (Opcional)"
         placeholder="https://example.com/avatar.png"
         fullWidth
-        error={!!errors.avatarUrl}
-        helperText={errors.avatarUrl?.message}
+        error={showErrorAvatarUrl}
+        helperText={showErrorAvatarUrl ? errors.avatarUrl?.message : ''}
         sx={{ mt: 3 }}
       />
     </Box>

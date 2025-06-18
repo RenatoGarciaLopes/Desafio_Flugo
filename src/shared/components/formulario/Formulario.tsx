@@ -14,7 +14,7 @@ export const Formulario = () => {
         label="Nome"
         placeholder="João da Silva"
         fullWidth
-        // Lógica para mostrar o erro de validação
+        variant="outlined"
         error={!!errors.name}
         helperText={errors.name?.message}
         sx={{ mb: 2 }}

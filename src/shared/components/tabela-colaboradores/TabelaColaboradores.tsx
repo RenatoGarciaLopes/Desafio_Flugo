@@ -1,11 +1,13 @@
 import type { Employee } from '../../../shared/types/employee';
 import { Avatar, Box, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 interface TabelaColaboradoresProps {
   collaborators: Employee[];
 }
 
 export const TabelaColaboradores = ({ collaborators }: TabelaColaboradoresProps) => {
+  const theme = useTheme();
   return (
     <TableContainer component={Paper} sx={{ borderRadius: '16px' }}>
       <Table sx={{ minWidth: 650 }} aria-label="tabela de colaboradores">
@@ -33,8 +35,13 @@ export const TabelaColaboradores = ({ collaborators }: TabelaColaboradoresProps)
               <TableCell>
                 <Chip
                   label={collab.status}
-                  color={collab.status === 'Ativo' ? 'success' : 'error'}
                   size="small"
+                  sx={{
+                  borderRadius: '8px',    
+                  fontWeight: 'bold',
+                  backgroundColor: collab.status === 'Ativo' ? theme.palette.status.ativoBg : theme.palette.status.inativoBg,
+                  color: collab.status === 'Ativo' ? theme.palette.status.ativoText : theme.palette.status.inativoText
+                }}
                 />
               </TableCell>
             </TableRow>

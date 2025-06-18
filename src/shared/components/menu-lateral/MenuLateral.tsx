@@ -1,6 +1,7 @@
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import flugoLogo from '../../../assets/Logo_flugo.png';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -11,6 +12,7 @@ interface MenuLateralProps {
 }
 
 export const MenuLateral = ({ variant, open, onClose }: MenuLateralProps) => {
+  const navigate = useNavigate();
   return (
     <Drawer
       variant={variant}
@@ -31,7 +33,7 @@ export const MenuLateral = ({ variant, open, onClose }: MenuLateralProps) => {
       </Box>
       <List>
         <ListItem disablePadding>
-          <ListItemButton selected>
+          <ListItemButton selected onClick={() => navigate('/dashboard')}>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>

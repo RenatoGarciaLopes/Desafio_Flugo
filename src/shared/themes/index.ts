@@ -1,6 +1,25 @@
 import { createTheme } from "@mui/material";
 
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    status: {
+      inativoBg: string;
+      inativoText: string;
+      ativoBg: string;
+      ativoText: string;
+    };
+  }
+  interface PaletteOptions {
+    status?: {
+      inativoBg?: string;
+      inativoText?: string;
+      ativoBg?: string;
+      ativoText?: string;
+    };
+  }
+}
+
 export const IndexTheme = createTheme({
     palette: {
         primary: {
@@ -10,7 +29,7 @@ export const IndexTheme = createTheme({
             contrastText: '#ffffff',
         },
 
-        secondary:{
+        secondary: {
             main: '#1BB55C'
         },
 
@@ -21,28 +40,43 @@ export const IndexTheme = createTheme({
         text: {
             primary: '#000000',
             secondary: '#637381'
+        },
+
+        error: {
+            main: '#d32f2f',
+            contrastText: '#ffff',
+        },
+        success: {
+            main: '#4caf50',
+            contrastText: '#ffff',
+        },
+        status: {
+            inativoBg: '#ffe4de',  
+            inativoText: '#b71d18', 
+            ativoBg: '#dbf6e5', 
+            ativoText: '#118d57', 
         }
+
     },
 
     typography: {
-        
+
         fontFamily: [
             'Public Sans',
             'sans-serif'
         ].join(','),
 
-        // Customiza variantes específicas
+       
         h4: {
-            fontWeight: 700, // Negrito
-            fontSize: '2rem', // Exemplo de tamanho
+            fontWeight: 700, 
+            fontSize: '2rem', 
         },
         body1: {
-            fontWeight: 400, // Peso regular
+            fontWeight: 400, 
             fontSize: '1rem',
         },
         button: {
-            textTransform: 'none', // Impede que os botões fiquem em MAIÚSCULAS
-            fontWeight: 700,
+            textTransform: 'none', 
         }
     }
 });
