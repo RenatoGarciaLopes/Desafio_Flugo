@@ -67,10 +67,31 @@ export const IndexTheme = createTheme({
         ].join(','),
 
        
-        h4: {
-            fontWeight: 700, 
-            fontSize: '2rem', 
+                h1: { // Exemplo de h1
+            fontWeight: 800,
+            fontSize: '4rem', // Ajuste o tamanho conforme sua necessidade
         },
+        h2: { // Exemplo de h2
+            fontWeight: 700,
+            fontSize: '3rem',
+        },
+        h3: { // Exemplo de h3
+            fontWeight: 700,
+            fontSize: '2.5rem',
+        },
+        h4: { // Este já estava definido
+            fontWeight: 700,
+            fontSize: '2rem',
+        },
+        h5: { // Exemplo de h5
+            fontWeight: 600,
+            fontSize: '1.5rem',
+        },
+        h6: { // Exemplo de h6
+            fontWeight: 600,
+            fontSize: '1.25rem',
+        },
+        
         body1: {
             fontWeight: 400, 
             fontSize: '1rem',

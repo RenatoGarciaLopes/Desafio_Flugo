@@ -1,6 +1,6 @@
 // src/shared/components/indicador-de-passo/IndicadorDePasso.tsx
 import { Box, Typography } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check'; // Mantendo CheckIcon conforme seu código
+import CheckIcon from '@mui/icons-material/Check'; 
 import { styled } from '@mui/system'; 
 import { useTheme } from '@mui/material/styles'; 
 
@@ -11,35 +11,39 @@ const StyledIcon = styled(Box)(({ theme }) => ({
     borderRadius: '50%',
     width: 28,
     height: 28,
-    transition: 'all 0.3s ease-in-out',
+    transition: 'all 1s ease-in-out',
 
     backgroundColor: theme.palette.grey[400],
-    // Removido 'color: theme.palette.common.white' daqui, será controlado por regras específicas
 
     '&.active': {
         backgroundColor: theme.palette.primary.main,
         boxShadow: (theme.shadows as string[])[3],
-        transform: 'scale(1.1)',
+        transform: 'scale(1.1)', // Efeito de "aproximar" (pop/escala)
     },
     '&.completed': {
         backgroundColor: theme.palette.primary.main,
     },
+    // Adiciona uma classe para quando o formulário está completamente finalizado
+    '&.formCompleted': {
+        backgroundColor: theme.palette.primary.main,
+        // Você pode adicionar um transform diferente ou outro efeito se quiser um "pop" final
+        // transform: 'scale(1.2)', 
+    },
 
     '& .MuiSvgIcon-root': {
         fontSize: 18,
-        transition: 'all 0.5s ease-in-out',
+        transition: 'all 1s ease-in-out',
         color: theme.palette.common.white, 
     },
 
     '& .MuiTypography-root': {
-        transition: 'color 0.5s ease-in-out',
+        transition: 'color 1s ease-in-out',
         color: theme.palette.common.white,
     },
 
     '&.inactive .MuiTypography-root': {
         color: theme.palette.text.secondary,
     },
-
 }));
 
 
@@ -47,12 +51,16 @@ const StyledConnector = styled(Box)(({ theme }) => ({
     width: 2,
     minHeight: 100, 
     backgroundColor: theme.palette.grey[400], 
-    transition: 'background-color 0.5s ease-in-out, height 0.5s ease-in-out', 
+    transition: 'background-color 1s ease-in-out, height 1s ease-in-out', 
     alignSelf: 'stretch', 
     marginLeft: 28 / 2 - 1, 
 
     '&.completed': {
         backgroundColor: theme.palette.primary.main, 
+    },
+    // Estilo para o conector quando o formulário está completamente finalizado
+    '&.formCompleted': {
+        backgroundColor: theme.palette.primary.main,
     },
     '&.active': {
         height: 'auto', 
@@ -62,37 +70,53 @@ const StyledConnector = styled(Box)(({ theme }) => ({
 
 
 // Defina os passos fora do componente para evitar recriação desnecessária
-const steps = ['Infos Básicas', 'Infos Profissionais'];
+// IMPORTANTE: Se você moveu steps para um arquivo de constantes (EMPLOYEE_FORM_STEPS),
+// você precisaria importá-lo aqui também, ou passá-lo como prop.
+// Por enquanto, vamos assumir que está definido localmente ou que o hook o provê.
+const steps = ['Infos Básicas', 'Infos Profissionais']; 
 
 interface IndicadorDePassoProps {
     stepIndex: number;
     activeStep: number;
     isLastStep: boolean;
-    isFormCompleted: boolean;
+    isFormCompleted: boolean; // <--- Propriedade que indica se o formulário foi concluído
 }
 
-export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep }: IndicadorDePassoProps) => {
-    const theme = useTheme(); // Para acessar as cores do tema
+export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep, isFormCompleted }: IndicadorDePassoProps) => {
+    const theme = useTheme(); 
     const isCompleted = stepIndex < activeStep;
     const isActive = stepIndex === activeStep;
 
     let iconComponent;
     let statusClass = 'inactive';
-    let textColor = theme.palette.text.secondary; // Cor do texto inativo padrão
+    let textColor = theme.palette.text.secondary; 
     let fontWeight = 'regular';
 
-    if (isCompleted) {
+    // LÓGICA PRINCIPAL DA ANIMAÇÃO:
+    // 1. Se o formulário está CONCLUÍDO, todos os ícones são CheckIcon
+    if (isFormCompleted) { 
+        iconComponent = <CheckIcon />;
+        statusClass = 'completed formCompleted'; // Adiciona a classe 'formCompleted'
+        textColor = theme.palette.text.primary;
+        fontWeight = 'bold';
+    } 
+    // 2. Se não está concluído, mas o passo já foi COMPLETO (passou por ele)
+    else if (isCompleted) {
         iconComponent = <CheckIcon />;
         statusClass = 'completed';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
-    } else if (isActive) {
-        iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>; // Número branco em fundo verde
+    } 
+    // 3. Se é o passo ATIVO
+    else if (isActive) {
+        iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'active';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
-    } else {
-        iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>; // Número cinza em fundo cinza
+    } 
+    // 4. Se é um passo FUTURO
+    else {
+        iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'inactive';
         textColor = theme.palette.text.secondary;
         fontWeight = 'regular';
@@ -111,7 +135,7 @@ export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep }: Indicado
                         ml: 2,
                         fontWeight: fontWeight,
                         color: textColor,
-                        transition: 'color 0.3s ease-in-out, font-weight 0.3s ease-in-out'
+                        transition: 'color 1s ease-in-out, font-weight 1s ease-in-out'
                     }}
                 >
                     {steps[stepIndex]}
@@ -121,8 +145,8 @@ export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep }: Indicado
             
             {!isLastStep && (
                 <StyledConnector
-                    className={isCompleted ? 'completed' : (isActive ? 'active' : '')}
-                
+                    // O conector também fica verde se o passo estiver completo OU se o formulário inteiro estiver completo
+                    className={isCompleted || isFormCompleted ? 'completed' : (isActive ? 'active' : '')} 
                 />
             )}
         </Box>

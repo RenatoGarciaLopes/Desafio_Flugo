@@ -16,8 +16,8 @@ export const FormularioProfissional = () => {
 
 
   return (
-    <Box>
-      <Typography variant="h6" sx={{ mb: 2 }}>Informações Profissionais</Typography>
+    <Box minHeight={'440px'}>
+      <Typography variant="h6" sx={{ mb: 2, fontWeight:'bold' }} color='text.secondary'>Informações Profissionais</Typography>
 
       <Controller
         name="department"
@@ -60,11 +60,10 @@ export const FormularioProfissional = () => {
         label="URL do Avatar (Opcional)"
         placeholder="https://example.com/avatar.png"
         fullWidth
-        // Para campos opcionais, é mais comum mostrar o erro apenas na submissão final
-        // ou se houver uma validação de formato (ex: pattern) e o campo for dirty/tocado
+
         error={!!errors.avatarUrl && isSubmitted}
         helperText={!!errors.avatarUrl && isSubmitted ? errors.avatarUrl?.message : ''}
-        sx={{ mt: 3 }}
+        sx={{ mt: 2 }}
       />
     </Box>
   );

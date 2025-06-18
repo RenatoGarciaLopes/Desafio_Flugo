@@ -3,7 +3,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import flugoLogo from '../../../assets/Logo_flugo.png';
 import { useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 interface MenuLateralProps {
   variant: 'permanent' | 'persistent' | 'temporary';
