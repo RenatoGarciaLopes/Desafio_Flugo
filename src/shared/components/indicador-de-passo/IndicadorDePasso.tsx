@@ -67,7 +67,8 @@ const steps = ['Infos Básicas', 'Infos Profissionais'];
 interface IndicadorDePassoProps {
     stepIndex: number;
     activeStep: number;
-    isLastStep: boolean; // Propriedade para saber se é o último passo
+    isLastStep: boolean;
+    isFormCompleted: boolean;
 }
 
 export const IndicadorDePasso = ({ stepIndex, activeStep, isLastStep }: IndicadorDePassoProps) => {

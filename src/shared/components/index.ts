@@ -7,4 +7,5 @@ export * from './formulario/FormularioProfissional';
 export * from './breadcrumbs-navegacao/BreadcrumbsNavegacao';
 export * from './barra-de-progresso/BarraDeProgresso';
 export * from './indicador-de-passo/IndicadorDePasso'
+export * from './modal-validacao/ModalValidacao'
 
