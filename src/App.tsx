@@ -10,7 +10,6 @@ function App() {
     <ThemeProvider theme = {IndexTheme}>
       <BrowserRouter>
         <CssBaseline />
-        
         <ErrorBoundary>
         <NotificationProvider>
         <AppRoutes />

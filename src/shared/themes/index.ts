@@ -1,103 +1,45 @@
 import { createTheme } from "@mui/material";
-
+import { appPaleta } from "./paleta";
+import { appTipografia } from "./tipografia";
 
 declare module '@mui/material/styles' {
-  interface Palette {
-    status: {
-      inativoBg: string;
-      inativoText: string;
-      ativoBg: string;
-      ativoText: string;
-    };
-  }
-  interface PaletteOptions {
-    status?: {
-      inativoBg?: string;
-      inativoText?: string;
-      ativoBg?: string;
-      ativoText?: string;
-    };
-  }
+    interface Paleta {
+        status: {
+            inativoBg: string;
+            inativoText: string;
+            ativoBg: string;
+            ativoText: string;
+        };
+    }
+    interface PaletteOptions {
+        status?: {
+            inativoBg?: string;
+            inativoText?: string;
+            ativoBg?: string;
+            ativoText?: string;
+        };
+    }
 }
 
 export const IndexTheme = createTheme({
-    palette: {
-        primary: {
-            main: '#22c55e',
-            dark: '#178941',
-            light: '#4ed07e',
-            contrastText: '#ffffff',
-        },
+    palette: appPaleta,
+    typography: appTipografia,
+    components: {
+        MuiCssBaseline: {
+            styleOverrides: `
+                /* Regras para o preenchimento automático (autofill) */
+                input:-webkit-autofill,
+                input:-webkit-autofill:hover, 
+                input:-webkit-autofill:focus, 
+                input:-webkit-autofill:active {
+                    -webkit-box-shadow: 0 0 0px 1000px white inset !important; 
+                    -webkit-text-fill-color: #000000 !important; 
+                    color: #000000 !important; 
+                    transition: background-color 5000s ease-in-out 0s; 
+                }
 
-        secondary: {
-            main: '#1BB55C'
+            `,
         },
-
-        background: {
-            default: '#ffffff'
-        },
-
-        text: {
-            primary: '#000000',
-            secondary: '#637381'
-        },
-
-        error: {
-            main: '#d32f2f',
-            contrastText: '#ffff',
-        },
-        success: {
-            main: '#4caf50',
-            contrastText: '#ffff',
-        },
-        status: {
-            inativoBg: '#ffe4de',  
-            inativoText: '#b71d18', 
-            ativoBg: '#dbf6e5', 
-            ativoText: '#118d57', 
-        }
 
     },
-
-    typography: {
-
-        fontFamily: [
-            'Public Sans',
-            'sans-serif'
-        ].join(','),
-
-       
-                h1: {
-            fontWeight: 800,
-            fontSize: '4rem', 
-        },
-        h2: {
-            fontWeight: 700,
-            fontSize: '3rem',
-        },
-        h3: { 
-            fontWeight: 700,
-            fontSize: '2.5rem',
-        },
-        h4: { 
-            fontWeight: 700,
-            fontSize: '2rem',
-        },
-        h5: {
-            fontWeight: 600,
-            fontSize: '1.5rem',
-        },
-        h6: { 
-            fontWeight: 600,
-            fontSize: '1.25rem',
-        },
-        
-        body1: {
-            fontWeight: 400, 
-            fontSize: '1rem',
-        },
-        button: {
-            textTransform: 'none', 
-        }
-    }
 });
