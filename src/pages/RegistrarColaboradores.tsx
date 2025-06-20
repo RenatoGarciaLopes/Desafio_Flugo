@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import { FormProvider } from 'react-hook-form'; 
 
-
-
 import { useMultiStepForm } from '../shared/hooks/useMultiStepForm';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
 import type { Funcionario } from '../shared/types/funcionario';
@@ -75,9 +73,7 @@ export function RegistrarColaboradores() {
       <BreadcrumbsNavegacao />
       <BarraDeProgresso valor={progressValue} />
 
-
        <FormProvider {...methods}>
-        {/* Usando o novo MultiStepFormContainer */}
         <MultiStepFormContainer
           activeStep={activeStep}
           steps={steps}

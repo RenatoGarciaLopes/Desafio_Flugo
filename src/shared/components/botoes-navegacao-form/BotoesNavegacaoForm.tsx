@@ -1,4 +1,3 @@
-// src/shared/components/form-navigation-buttons/BotoesNavegacaoForm.tsx
 import { Box, Button, CircularProgress } from '@mui/material';
 import React from 'react';
 
@@ -7,8 +6,8 @@ interface BotoesNavegacaoFormProps {
   isLastStep: boolean;
   isSubmitting: boolean;
   handleBack: () => void;
-  handleNext?: () => void; // Opcional, pois não é usado no último passo
-  onSubmit?: () => void; // Opcional, para o botão de submit do último passo
+  handleNext?: () => void; 
+  onSubmit?: () => void; 
 }
 
 export const BotoesNavegacaoForm: React.FC<BotoesNavegacaoFormProps> = ({

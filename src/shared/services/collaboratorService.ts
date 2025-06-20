@@ -1,4 +1,3 @@
-// src/shared/services/collaboratorService.ts
 import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase.ts';
 import type { Funcionario } from '../types/funcionario.ts';
@@ -7,17 +6,16 @@ import type { Funcionario } from '../types/funcionario.ts';
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
-      // Rejeita com um erro específico de timeout
       reject(new Error('Tempo limite da requisição excedido. Verifique sua conexão.'));
     }, ms);
 
     promise
       .then(res => {
-        clearTimeout(timeoutId); // Limpa o timeout se a promessa resolver
+        clearTimeout(timeoutId);
         resolve(res);
       })
       .catch(err => {
-        clearTimeout(timeoutId); // Limpa o timeout se a promessa rejeitar
+        clearTimeout(timeoutId); 
         reject(err);
       });
   });
@@ -29,7 +27,6 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
  */
 export async function getCollaborators(): Promise<Funcionario[]> {
   try {
-    // Aplica o timeout à operação getDocs
     const querySnapshot = await withTimeout(getDocs(collection(db, "collaborators")), 15000); // Ex: 15 segundos de timeout
     const collaborators = querySnapshot.docs.map(doc => ({
       id: doc.id,
@@ -38,8 +35,7 @@ export async function getCollaborators(): Promise<Funcionario[]> {
     return collaborators;
   } catch (error) {
     console.error("Erro ao buscar colaboradores: ", error);
-    // Propaga o erro (incluindo o de timeout)
-    throw error; // Use 'throw error' para manter o tipo de erro original
+    throw error; 
   }
 }
 
@@ -50,47 +46,45 @@ export async function getCollaborators(): Promise<Funcionario[]> {
  */
 export async function addCollaborator(collaboratorData: Omit<Funcionario, 'id'>): Promise<void> {
   try {
-    // Aplica o timeout à operação addDoc
-    await withTimeout(addDoc(collection(db, 'collaborators'), collaboratorData), 10000); // Ex: 10 segundos de timeout
+    await withTimeout(addDoc(collection(db, 'collaborators'), collaboratorData), 10000);
     console.log('Colaborador adicionado com sucesso!');
   } catch (error) {
     console.error("Erro ao adicionar colaborador: ", error);
-    // Propaga o erro (incluindo o de timeout)
-    throw error; // Use 'throw error' para manter o tipo de erro original
+    throw error; 
   }
 }
 
-/**
- * Atualiza os dados de um colaborador existente.
- * @param id - O ID do colaborador a ser atualizado.
- * @param dataToUpdate - Um objeto com os campos a serem atualizados.
- */
-export async function updateCollaborator(id: string, dataToUpdate: Partial<Funcionario>): Promise<void> {
-  try {
-    const collaboratorRef = doc(db, 'collaborators', id);
-    // Aplica o timeout à operação updateDoc
-    await withTimeout(updateDoc(collaboratorRef, dataToUpdate), 10000); // Ex: 10 segundos de timeout
-    console.log('Colaborador atualizado com sucesso!');
-  } catch (error) {
-    console.error("Erro ao atualizar colaborador: ", error);
-    // Propaga o erro (incluindo o de timeout)
-    throw error; // Use 'throw error' para manter o tipo de erro original
-  }
-}
 
-/**
- * Deleta um colaborador do banco de dados.
- * @param id - O ID do colaborador a ser deletado.
- */
-export async function deleteCollaborator(id: string): Promise<void> {
-  try {
-    const collaboratorRef = doc(db, 'collaborators', id);
-    // Aplica o timeout à operação deleteDoc
-    await withTimeout(deleteDoc(collaboratorRef), 10000); // Ex: 10 segundos de timeout
-    console.log('Colaborador deletado com sucesso!');
-  } catch (error) {
-    console.error("Erro ao deletar colaborador: ", error);
-    // Propaga o erro (incluindo o de timeout)
-    throw error; // Use 'throw error' para manter o tipo de erro original
-  }
-}
+
+// //Restante da logica do crud nao implementada
+
+// /**
+//  * Atualiza os dados de um colaborador existente
+//  * @param id 
+//  * @param dataToUpdate 
+//  */
+// export async function updateCollaborator(id: string, dataToUpdate: Partial<Funcionario>): Promise<void> {
+//   try {
+//     const collaboratorRef = doc(db, 'collaborators', id);
+//     await withTimeout(updateDoc(collaboratorRef, dataToUpdate), 10000); // Ex: 10 segundos de timeout
+//     console.log('Colaborador atualizado com sucesso!');
+//   } catch (error) {
+//     console.error("Erro ao atualizar colaborador: ", error);
+//     throw error; 
+//   }
+// }
+
+// /**
+//  * Deleta um colaborador do banco de dados.
+//  * @param id - O ID do colaborador a ser deletado.
+//  */
+// export async function deleteCollaborator(id: string): Promise<void> {
+//   try {
+//     const collaboratorRef = doc(db, 'collaborators', id);
+//     await withTimeout(deleteDoc(collaboratorRef), 10000);
+//     console.log('Colaborador deletado com sucesso!');
+//   } catch (error) {
+//     console.error("Erro ao deletar colaborador: ", error);
+//     throw error; 
+//   }
+// }
