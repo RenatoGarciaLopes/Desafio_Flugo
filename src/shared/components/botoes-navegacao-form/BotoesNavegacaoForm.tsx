@@ -6,8 +6,8 @@ interface BotoesNavegacaoFormProps {
   isLastStep: boolean;
   isSubmitting: boolean;
   handleBack: () => void;
-  handleNext?: () => void; 
-  onSubmit?: () => void; 
+  handleNext?: () => void;
+  onSubmit?: () => void;
 }
 
 export const BotoesNavegacaoForm: React.FC<BotoesNavegacaoFormProps> = ({

@@ -1,7 +1,8 @@
 // src/shared/components/multi-step-form-container/MultiStepFormContainer.tsx
 import { Box } from '@mui/material';
 import type { ReactNode } from 'react';
-import { BotoesNavegacaoForm, IndicadorDePasso } from '../index'; 
+import { IndicadorDePasso } from '../indicador-de-passo/IndicadorDePasso'; 
+import { BotoesNavegacaoForm } from '../'; 
 
 interface MultiStepFormContainerProps {
   activeStep: number;
