@@ -1,7 +1,7 @@
 // src/shared/services/collaboratorService.ts
 import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase.ts';
-import type { Employee } from '../types/employee.ts';
+import type { Funcionario } from '../types/funcionario.ts';
 
 // Função auxiliar para adicionar timeout a uma promessa
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
@@ -27,14 +27,14 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
  * Busca todos os colaboradores no banco de dados.
  * @returns Uma promessa que resolve para um array de colaboradores.
  */
-export async function getCollaborators(): Promise<Employee[]> {
+export async function getCollaborators(): Promise<Funcionario[]> {
   try {
     // Aplica o timeout à operação getDocs
     const querySnapshot = await withTimeout(getDocs(collection(db, "collaborators")), 15000); // Ex: 15 segundos de timeout
     const collaborators = querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
-    })) as Employee[];
+    })) as Funcionario[];
     return collaborators;
   } catch (error) {
     console.error("Erro ao buscar colaboradores: ", error);
@@ -48,7 +48,7 @@ export async function getCollaborators(): Promise<Employee[]> {
  * O ID é gerado automaticamente pelo Firestore.
  * @param collaboratorData - Os dados do colaborador a serem adicionados (sem o ID).
  */
-export async function addCollaborator(collaboratorData: Omit<Employee, 'id'>): Promise<void> {
+export async function addCollaborator(collaboratorData: Omit<Funcionario, 'id'>): Promise<void> {
   try {
     // Aplica o timeout à operação addDoc
     await withTimeout(addDoc(collection(db, 'collaborators'), collaboratorData), 10000); // Ex: 10 segundos de timeout
@@ -65,7 +65,7 @@ export async function addCollaborator(collaboratorData: Omit<Employee, 'id'>): P
  * @param id - O ID do colaborador a ser atualizado.
  * @param dataToUpdate - Um objeto com os campos a serem atualizados.
  */
-export async function updateCollaborator(id: string, dataToUpdate: Partial<Employee>): Promise<void> {
+export async function updateCollaborator(id: string, dataToUpdate: Partial<Funcionario>): Promise<void> {
   try {
     const collaboratorRef = doc(db, 'collaborators', id);
     // Aplica o timeout à operação updateDoc

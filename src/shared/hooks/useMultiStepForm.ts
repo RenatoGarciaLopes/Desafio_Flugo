@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useForm, type UseFormReturn, type FieldValues, type Path, type DefaultValues,} from 'react-hook-form'; 
-import { EMPLOYEE_FORM_STEPS, EMPLOYEE_FORM_FIELDS_BY_STEP } from '../constants/employeeForm';
+import { Funcionario_FORM_STEPS, Funcionario_FORM_FIELDS_BY_STEP } from '../constants/FuncionarioForm';
 
 interface MultiStepFormHookReturn<T extends FieldValues> {
   activeStep: number;
@@ -24,7 +24,7 @@ export const useMultiStepForm = <T extends FieldValues>(
   });
 
   const handleNext = async () => {
-    const currentStepFields = EMPLOYEE_FORM_FIELDS_BY_STEP[activeStep] as Path<T>[];
+    const currentStepFields = Funcionario_FORM_FIELDS_BY_STEP[activeStep] as Path<T>[];
     const isStepValid = await methods.trigger(currentStepFields, { shouldFocus: true });
 
     if (isStepValid) {
@@ -56,14 +56,14 @@ export const useMultiStepForm = <T extends FieldValues>(
     setActiveStep(0);
   };
 
-  const isLastStep = activeStep === EMPLOYEE_FORM_STEPS.length - 1;
+  const isLastStep = activeStep === Funcionario_FORM_STEPS.length - 1;
 
   return {
     activeStep,
     methods,
     handleNext,
     handleBack,
-    steps: EMPLOYEE_FORM_STEPS,
+    steps: Funcionario_FORM_STEPS,
     isLastStep,
     resetToFirstStep, 
   };

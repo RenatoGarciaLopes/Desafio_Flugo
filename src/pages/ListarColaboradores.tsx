@@ -1,16 +1,16 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Employee } from '../shared/types/employee';
+import type { Funcionario } from '../shared/types/funcionario';
 import { getCollaborators } from '../shared/services/collaboratorService';
 import { Alert, Box, CircularProgress } from '@mui/material';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
 import { Cabecalho, SectionHeader, TabelaColaboradores } from '../shared/components';
 import { useNavigate } from 'react-router-dom';
 
-type OrderBy = keyof Employee | '';
+type OrderBy = keyof Funcionario | '';
 
 export function ListarColaboradores() {
   const navigate = useNavigate();
-  const [collaborators, setCollaborators] = useState<Employee[]>([]);
+  const [collaborators, setCollaborators] = useState<Funcionario[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [orderBy, setOrderBy] = useState<OrderBy>('');
@@ -32,7 +32,7 @@ export function ListarColaboradores() {
     fetchCollaborators();
   }, []);
 
-  const handleRequestSort = useCallback((property: keyof Employee) => {
+  const handleRequestSort = useCallback((property: keyof Funcionario) => {
     const isAsc = orderBy === property && orderDirection === 'asc';
     setOrderDirection(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -75,7 +75,7 @@ export function ListarColaboradores() {
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> {/* */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> 
         <CircularProgress />
       </Box>
     );
@@ -83,7 +83,7 @@ export function ListarColaboradores() {
 
   if (error) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> {/* */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> 
         <Alert severity="error">{error}</Alert>
       </Box>
     );

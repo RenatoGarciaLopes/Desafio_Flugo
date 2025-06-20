@@ -1,10 +1,10 @@
 import { TextField, Switch, FormControlLabel, Typography, Box } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
-import type { Employee } from '../../types/employee';
+import type { Funcionario } from '../../types/funcionario';
 
 
 export const Formulario = () => {
-  const { register, formState: { errors }, control } = useFormContext<Employee>();
+  const { register, formState: { errors }, control } = useFormContext<Funcionario>();
 
   return (
     <Box  minHeight={'440px'}>

@@ -1,14 +1,13 @@
 
 import { useState } from 'react';
-import { FormProvider } from 'react-hook-form'; // Continua sendo necessário para FormProvider
+import { FormProvider } from 'react-hook-form'; 
 
 
 
 import { useMultiStepForm } from '../shared/hooks/useMultiStepForm';
-import { Box, Button, CircularProgress } from '@mui/material';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
-import type { Employee } from '../shared/types/employee';
-import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavegacao, IndicadorDePasso, Cabecalho, ModalValidacao } from '../shared/components';
+import type { Funcionario } from '../shared/types/funcionario';
+import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavegacao, Cabecalho, ModalValidacao, MultiStepFormContainer } from '../shared/components';
 
 import { addCollaborator } from '../shared/services/collaboratorService';
 import { useNotification } from '../shared/contexts/NotificationContext';
@@ -30,13 +29,13 @@ export function RegistrarColaboradores() {
     steps,
     isLastStep,
     resetToFirstStep,
-  } = useMultiStepForm<Employee>(
+  } = useMultiStepForm<Funcionario>(
     { name: '', email: '', department: '', avatarUrl: '', status: 'Ativo' }
   );
 
 
 
-  const onSubmit = async (data: Employee) => {
+  const onSubmit = async (data: Funcionario) => {
     setIsSubmitting(true);
 
     try {
@@ -77,84 +76,21 @@ export function RegistrarColaboradores() {
       <BarraDeProgresso valor={progressValue} />
 
 
-      <FormProvider {...methods}>
-        {isLastStep ? (
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <Box sx={{
-              display: 'flex',
-              gap: 2,
-              flexDirection: { xs: 'column', md: 'row' }
-            }}>
-              <Box sx={{ flex: '1 1 15%' }}>
-                {steps.map((label, index) => (
-                  <IndicadorDePasso
-                    key={label}
-                    stepIndex={index}
-                    activeStep={activeStep}
-                    isLastStep={index === steps.length - 1}
-                    isFormCompleted={isFormCompleted}
-                  />
-                ))}
-              </Box>
-              <Box sx={{ flex: '1 1 75%' }}>
-                {activeStep === 0 && <Formulario />}
-                {activeStep === 1 && <FormularioProfissional />}
-
-              
-
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
-                  <Button variant="text"
-                   disabled={activeStep === 0 || isSubmitting} 
-                   onClick={handleBack} 
-                   sx={{ color: 'text.primary', fontWeight:'bold' }}>
-                    Voltar
-                  </Button>
-                  <Button variant="contained" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Concluir'}
-                  </Button>
-                </Box>
-              </Box>
-            </Box>
-          </form>
-        ) : (
-
-          <Box sx={{
-            display: 'flex',
-            gap: 2,
-            flexDirection: { xs: 'column', md: 'row' }
-          }}>
-            <Box sx={{ flex: '1 1 15%'}}>
-              {steps.map((label, index) => (
-                <IndicadorDePasso
-                  key={label}
-                  stepIndex={index}
-                  activeStep={activeStep}
-                  isLastStep={index === steps.length - 1}
-                  isFormCompleted={isFormCompleted}
-                
-                />
-              ))}
-            </Box>
-            <Box sx={{ flex: '1 1 75%' }}>
-              {activeStep === 0 && <Formulario />}
-              {activeStep === 1 && <FormularioProfissional />}
-
-              
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
-                <Button variant="text" 
-                disabled={activeStep === 0 || isSubmitting} 
-                onClick={handleBack} 
-                sx={{ color: 'text.primary' }}>
-                  Voltar
-                </Button>
-                <Button variant="contained" onClick={handleNext}>
-                  Próximo
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        )}
+       <FormProvider {...methods}>
+        {/* Usando o novo MultiStepFormContainer */}
+        <MultiStepFormContainer
+          activeStep={activeStep}
+          steps={steps}
+          isLastStep={isLastStep}
+          isSubmitting={isSubmitting}
+          isFormCompleted={isFormCompleted}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          onSubmit={methods.handleSubmit(onSubmit)} 
+        >
+          {activeStep === 0 && <Formulario />}
+          {activeStep === 1 && <FormularioProfissional />}
+        </MultiStepFormContainer>
       </FormProvider>
 
 

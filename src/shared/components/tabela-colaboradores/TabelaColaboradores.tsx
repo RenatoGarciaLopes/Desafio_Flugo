@@ -1,18 +1,18 @@
-import type { Employee } from '../../types/employee';
+import type { Funcionario } from '../../types/funcionario';
 import { Avatar, Box, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TableSortLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 interface TabelaColaboradoresProps {
-  collaborators: Employee[];
-  orderBy: keyof Employee | '';
+  collaborators: Funcionario[];
+  orderBy: keyof Funcionario | '';
   orderDirection: 'asc' | 'desc';
-  onRequestSort: (property: keyof Employee) => void;
+  onRequestSort: (property: keyof Funcionario) => void;
 }
 
 export const TabelaColaboradores = ({ collaborators, orderBy, orderDirection, onRequestSort }: TabelaColaboradoresProps) => {
   const theme = useTheme();
 
-  const createSortHandler = (property: keyof Employee) => () => {
+  const createSortHandler = (property: keyof Funcionario) => () => {
     onRequestSort(property);
   };
 

@@ -1,6 +1,6 @@
 import { TextField, Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
-import type { Employee } from '../../types/employee';
+import type { Funcionario } from '../../types/funcionario';
 
 const departments = [
   'Comercial',
@@ -12,7 +12,7 @@ const departments = [
 
 export const FormularioProfissional = () => {
 
-  const { formState: { errors, isSubmitted }, control } = useFormContext<Employee>();
+  const { formState: { errors, isSubmitted }, control } = useFormContext<Funcionario>();
 
 
   return (

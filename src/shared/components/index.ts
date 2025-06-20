@@ -6,6 +6,8 @@ export * from './cabecalho/Cabecalho';
 export * from './formulario/FormularioProfissional';
 export * from './breadcrumbs-navegacao/BreadcrumbsNavegacao';
 export * from './barra-de-progresso/BarraDeProgresso';
-export * from './indicador-de-passo/IndicadorDePasso'
-export * from './modal-validacao/ModalValidacao'
-export * from './error-boundary/ErrorBoundary'
+export * from './indicador-de-passo/IndicadorDePasso';
+export * from './modal-validacao/ModalValidacao';
+export * from './error-boundary/ErrorBoundary';
+export * from './botoes-navegacao-form/BotoesNavegacaoForm';
+export * from './multi-step-form-container/MultistepFormContainer';
