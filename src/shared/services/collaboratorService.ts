@@ -1,4 +1,4 @@
-import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from './firebase.ts';
 import type { Funcionario } from '../types/funcionario.ts';
 
