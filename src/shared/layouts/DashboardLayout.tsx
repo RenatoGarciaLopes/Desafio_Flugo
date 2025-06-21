@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { AppBar, Box, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, useMediaQuery, useTheme, Avatar } from '@mui/material'; // Adicionado Avatar
 import MenuIcon from '@mui/icons-material/Menu';
 import { MenuLateral } from '../components/menu-lateral/MenuLateral.tsx';
 
@@ -22,9 +22,9 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       />
 
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: '100%' }}>
-        {isMobile && (
+        {isMobile ? (
           <AppBar position="static" elevation={0} sx={{ bgcolor: 'transparent', mb: 2 }}>
-            <Toolbar disableGutters>
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
               <IconButton
                 color="primary"
                 aria-label="abrir menu"
@@ -33,12 +33,22 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               >
                 <MenuIcon />
               </IconButton>
+              <IconButton>
+                <Avatar alt="Renato Lopes" />
+              </IconButton>
             </Toolbar>
           </AppBar>
+        ) : (
+          // Avatar para desktop, alinhado à direita
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+            <IconButton>
+              <Avatar alt="Renato Lopes" />
+            </IconButton>
+          </Box>
         )}
 
         {children}
-        
+
       </Box>
     </Box>
   );

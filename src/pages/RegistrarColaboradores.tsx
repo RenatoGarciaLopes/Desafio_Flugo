@@ -5,7 +5,7 @@ import { FormProvider } from 'react-hook-form';
 import { useMultiStepForm } from '../shared/hooks/useMultiStepForm';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
 import type { Funcionario } from '../shared/types/funcionario';
-import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavegacao, Cabecalho, ModalValidacao, MultiStepFormContainer } from '../shared/components';
+import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavegacao, ModalValidacao, MultiStepFormContainer } from '../shared/components';
 
 import { addCollaborator } from '../shared/services/collaboratorService';
 import { useNotification } from '../shared/contexts/NotificationContext';
@@ -69,7 +69,6 @@ export function RegistrarColaboradores() {
 
   return (
     <DashboardLayout>
-      <Cabecalho />
       <BreadcrumbsNavegacao />
       <BarraDeProgresso valor={progressValue} />
 

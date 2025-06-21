@@ -3,7 +3,7 @@ import type { Funcionario } from '../shared/types/funcionario';
 import { getCollaborators } from '../shared/services/collaboratorService';
 import { Alert, Box, CircularProgress } from '@mui/material';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
-import { Cabecalho, SectionHeader, TabelaColaboradores } from '../shared/components';
+import { SectionHeader, TabelaColaboradores } from '../shared/components';
 import { useNavigate } from 'react-router-dom';
 
 type OrderBy = keyof Funcionario | '';
@@ -93,7 +93,7 @@ export function ListarColaboradores() {
   return (
     <DashboardLayout>
 
-      <Cabecalho />
+    
 
       <SectionHeader
         title="Colaboradores"
