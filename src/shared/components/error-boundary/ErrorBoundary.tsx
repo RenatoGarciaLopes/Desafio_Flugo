@@ -3,7 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
-  fallback?: ReactNode; // Opcional: um componente de fallback customizado
+  fallback?: ReactNode;
 }
 
 interface ErrorBoundaryState {

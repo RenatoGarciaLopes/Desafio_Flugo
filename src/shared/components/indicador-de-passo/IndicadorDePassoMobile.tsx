@@ -1,4 +1,3 @@
-// src/shared/components/indicador-de-passo/IndicadorDePassoMobile.tsx
 import { Box, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import { styled } from '@mui/system';
@@ -43,8 +42,8 @@ const StyledIcon = styled(Box)(({ theme }) => ({
 const StyledConnector = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.grey[400],
     transition: 'background-color 1s ease-in-out, width 1s ease-in-out',
-    width: '100px', // Largura da linha horizontal em mobile
-    height: '2px', // Altura da linha horizontal em mobile
+    width: '100px',
+    height: '2px', 
 
     marginTop: '-12px', 
     marginBottom: '12px',
@@ -59,7 +58,7 @@ const StyledConnector = styled(Box)(({ theme }) => ({
     },
 }));
 
-const steps = ['Infos Básicas', 'Infos Profissionais']; // Pode usar o mesmo array de passos
+const steps = ['Infos Básicas', 'Infos Profissionais']; 
 
 interface IndicadorDePassoMobileProps {
     stepIndex: number;
@@ -112,11 +111,11 @@ export const IndicadorDePassoMobile = ({ stepIndex, activeStep, isLastStep, isFo
                 <Typography
                     variant="body1"
                     sx={{
-                        mt: 1, // Espaçamento entre o ícone e o texto
+                        mt: 1, 
                         fontWeight: fontWeight,
                         color: textColor,
-                        fontSize: '0.75rem', // Reduz o tamanho da fonte para mobile
-                        whiteSpace: 'nowrap', // Impede quebra de linha
+                        fontSize: '0.75rem',
+                        whiteSpace: 'nowrap', 
                         transition: 'color 1s ease-in-out, font-weight 1s ease-in-out'
                     }}
                 >

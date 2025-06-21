@@ -3,7 +3,7 @@ import { appPaleta } from "./paleta";
 import { appTipografia } from "./tipografia";
 
 declare module '@mui/material/styles' {
-    interface Paleta {
+    interface Palette {
         status: {
             inativoBg: string;
             inativoText: string;

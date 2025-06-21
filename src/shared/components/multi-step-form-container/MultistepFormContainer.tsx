@@ -1,4 +1,3 @@
-// src/shared/components/multi-step-form-container/MultiStepFormContainer.tsx
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import type { ReactNode } from 'react';
 import { IndicadorDePassoDesktop, IndicadorDePassoMobile, BotoesNavegacaoForm } from '../';

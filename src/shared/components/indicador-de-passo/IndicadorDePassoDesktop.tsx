@@ -88,29 +88,28 @@ export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isF
     let textColor = theme.palette.text.secondary; 
     let fontWeight = 'regular';
 
-    // LÓGICA PRINCIPAL DA ANIMAÇÃO:
-    // 1. Se o formulário está CONCLUÍDO, todos os ícones são CheckIcon
+   
     if (isFormCompleted) { 
         iconComponent = <CheckIcon />;
-        statusClass = 'completed formCompleted'; // Adiciona a classe 'formCompleted'
+        statusClass = 'completed formCompleted'; 
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 2. Se não está concluído, mas o passo já foi COMPLETO (passou por ele)
+ 
     else if (isCompleted) {
         iconComponent = <CheckIcon />;
         statusClass = 'completed';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 3. Se é o passo ATIVO
+
     else if (isActive) {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'active';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
     } 
-    // 4. Se é um passo FUTURO
+  
     else {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'inactive';
@@ -142,7 +141,6 @@ export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isF
             
             {!isLastStep && (
                 <StyledConnector
-                    // O conector também fica verde se o passo estiver completo OU se o formulário inteiro estiver completo
                     className={isCompleted || isFormCompleted ? 'completed' : (isActive ? 'active' : '')} 
                 />
             )}
