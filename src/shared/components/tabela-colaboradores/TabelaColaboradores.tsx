@@ -107,7 +107,7 @@ export const TabelaColaboradores = ({ collaborators, orderBy, orderDirection, on
                   sx={{
                   borderRadius: '8px',
                   fontWeight: 'bold',
-                  backgroundColor: collab.status === 'Ativo' ? theme.palette.status : theme.palette.status.inativoBg,
+                  backgroundColor: collab.status === 'Ativo' ? theme.palette.status.ativoBg : theme.palette.status.inativoBg,
                   color: collab.status === 'Ativo' ? theme.palette.status.ativoText : theme.palette.status.inativoText
                 }}
                 />

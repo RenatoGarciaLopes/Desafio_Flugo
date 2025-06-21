@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { appPaleta } from "./paleta";
+import { appPalette } from "./paleta";
 import { appTipografia } from "./tipografia";
 
 declare module '@mui/material/styles' {
@@ -22,7 +22,7 @@ declare module '@mui/material/styles' {
 }
 
 export const IndexTheme = createTheme({
-    palette: appPaleta,
+    palette: appPalette,
     typography: appTipografia,
     components: {
         MuiCssBaseline: {

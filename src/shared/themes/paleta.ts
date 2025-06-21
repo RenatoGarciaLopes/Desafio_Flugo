@@ -1,7 +1,7 @@
 import type { PaletteOptions } from "@mui/material";
 
 
-export const appPaleta: PaletteOptions = {
+export const appPalette: PaletteOptions = {
     primary: {
         main: '#22c55e',
         dark: '#178941',
