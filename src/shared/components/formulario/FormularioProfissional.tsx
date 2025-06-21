@@ -8,6 +8,7 @@ const departments = [
   'Tecnologia',
   'Financeiro',
   'Recursos Humanos',
+  'Design',
 ];
 
 export const FormularioProfissional = () => {
