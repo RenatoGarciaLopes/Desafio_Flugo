@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useForm, type UseFormReturn, type FieldValues, type Path, type DefaultValues,} from 'react-hook-form'; 
-import { Funcionario_FORM_STEPS, Funcionario_FORM_FIELDS_BY_STEP } from '../constants/employeeForm'
+import { Funcionario_FORM_STEPS, Funcionario_FORM_FIELDS_BY_STEP } from '../constants/FuncionarioForm'
 interface MultiStepFormHookReturn<T extends FieldValues> {
   activeStep: number;
   methods: UseFormReturn<T, any, T>; 

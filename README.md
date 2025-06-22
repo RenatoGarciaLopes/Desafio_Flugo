@@ -72,7 +72,7 @@ npm install
     VITE_FIREBASE_MESSAGING_SENDER_ID=[COLOQUE_SUA_MESSAGING_SENDER_ID]
     VITE_FIREBASE_APP_ID=[COLOQUE_SUA_APP_ID]
     ```
-4.  No Firebase Console, configure o `Firestore Database` e defina as regras de segurança apropriadas para leitura e escrita (para ambiente de desenvolvimento, o modo de teste pode ser utilizado temporariamente).
+4.  No Firebase Console, configure o `Firestore Database` e defina as regras de segurança apropriadas para leitura e escrita.
 
 ### 4. Inicie o Servidor de Desenvolvimento
 
@@ -122,7 +122,7 @@ Os artefatos de build serão gerados no diretório `dist/`.
 │   │   │   └── tabela-colaboradores/
 │   │   │   └── index.ts
 │   │   ├── constants/
-│   │   │   └── employeeForm.ts # Constantes relacionadas ao formulário de colaborador
+│   │   │   └── FuncionarioForm.ts # Constantes relacionadas ao formulário de colaborador
 │   │   ├── contexts/
 │   │   │   └── NotificationContext.tsx # Provedor para notificações globais
 │   │   ├── hooks/
