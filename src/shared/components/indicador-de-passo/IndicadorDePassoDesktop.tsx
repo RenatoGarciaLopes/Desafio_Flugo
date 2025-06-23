@@ -1,5 +1,4 @@
-
-import { Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material'; 
 import CheckIcon from '@mui/icons-material/Check'; 
 import { styled } from '@mui/system'; 
 import { useTheme } from '@mui/material/styles'; 
@@ -12,27 +11,27 @@ const StyledIcon = styled(Box)(({ theme }) => ({
     width: 28,
     height: 28,
     transition: 'all 1s ease-in-out',
+    boxShadow: 'none',
 
-    backgroundColor: theme.palette.grey[400],
+ 
+    backgroundColor: '#dfe3e8',
 
     '&.active': {
         backgroundColor: theme.palette.primary.main,
-        boxShadow: (theme.shadows as string[])[3],
-        transform: 'scale(1.1)', 
+        transform: 'scale(1.1)',
     },
     '&.completed': {
         backgroundColor: theme.palette.primary.main,
     },
-    
+
     '&.formCompleted': {
         backgroundColor: theme.palette.primary.main,
-        
     },
 
     '& .MuiSvgIcon-root': {
         fontSize: 18,
         transition: 'all 1s ease-in-out',
-        color: theme.palette.common.white, 
+        color: theme.palette.common.white,
     },
 
     '& .MuiTypography-root': {
@@ -46,70 +45,72 @@ const StyledIcon = styled(Box)(({ theme }) => ({
 }));
 
 
-const StyledConnector = styled(Box)(({ theme }) => ({
+const StyledConnector = styled(Box)(() => ({
     width: 2,
-    minHeight: 100, 
-    backgroundColor: theme.palette.grey[400], 
-    transition: 'background-color 1s ease-in-out, height 1s ease-in-out', 
-    alignSelf: 'stretch', 
-    marginLeft: 28 / 2 - 1, 
+    backgroundColor: '#919EAB33',
+    transition: 'background-color 1s ease-in-out, height 1s ease-in-out',
+    
+    marginLeft: 28 / 2 - 1,
+    height: '100px', 
+    marginTop: '8px', 
+    marginBottom: '8px', 
+ 
 
     '&.completed': {
-        backgroundColor: theme.palette.primary.main, 
+        height: '40px',
     },
-    
+
     '&.formCompleted': {
-        backgroundColor: theme.palette.primary.main,
+        height: '40px',
     },
     '&.active': {
-        height: 'auto', 
-        backgroundColor: theme.palette.grey[400],
+        backgroundColor: '#919EAB33',
     }
 }));
 
 
-
 const steps = ['Infos Básicas', 'Infos Profissionais']; 
 
-interface IndicadorDePassoDesktopProps {
-    stepIndex: number;
-    activeStep: number;
-    isLastStep: boolean;
+
+interface IndicadorDePassoDesktopProps { 
+    stepIndex: number; 
+    activeStep: number; 
+    isLastStep: boolean; 
     isFormCompleted: boolean; 
 }
 
-export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isFormCompleted }: IndicadorDePassoDesktopProps) => {
+export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isFormCompleted }: IndicadorDePassoDesktopProps) => { 
     const theme = useTheme(); 
     const isCompleted = stepIndex < activeStep;
     const isActive = stepIndex === activeStep;
 
     let iconComponent;
     let statusClass = 'inactive';
-    let textColor = theme.palette.text.secondary; 
+    let textColor = theme.palette.text.secondary;
     let fontWeight = 'regular';
 
-   
-    if (isFormCompleted) { 
+
+    if (isFormCompleted) {
         iconComponent = <CheckIcon />;
-        statusClass = 'completed formCompleted'; 
+        statusClass = 'completed formCompleted';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
-    } 
- 
+    }
+
     else if (isCompleted) {
         iconComponent = <CheckIcon />;
         statusClass = 'completed';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
-    } 
+    }
 
     else if (isActive) {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'active';
         textColor = theme.palette.text.primary;
         fontWeight = 'bold';
-    } 
-  
+    }
+
     else {
         iconComponent = <Typography variant="body2">{stepIndex + 1}</Typography>;
         statusClass = 'inactive';
@@ -119,7 +120,7 @@ export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isF
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            
+
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <StyledIcon className={statusClass}>
                     {iconComponent}
@@ -138,12 +139,12 @@ export const IndicadorDePassoDesktop = ({ stepIndex, activeStep, isLastStep, isF
                 </Typography>
             </Box>
 
-            
             {!isLastStep && (
                 <StyledConnector
-                    className={isCompleted || isFormCompleted ? 'completed' : (isActive ? 'active' : '')} 
+                    className={isCompleted || isFormCompleted ? 'completed' : (isActive ? 'active' : '')}
                 />
             )}
+
         </Box>
     );
 };

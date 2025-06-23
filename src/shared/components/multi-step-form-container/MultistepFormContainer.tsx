@@ -33,7 +33,8 @@ export const MultiStepFormContainer: React.FC<MultiStepFormContainerProps> = ({
     <Box sx={{
       display: 'flex',
       flexDirection: { xs: 'column', md: 'row' },
-      gap: { xs: 0, md: 2 }
+      gap: { xs: 0, md: 2 },
+     
     }}>
       <Box sx={{
         flex: { xs: '1 1 auto', md: '1 1 15%' },

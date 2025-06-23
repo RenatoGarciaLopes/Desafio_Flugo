@@ -11,7 +11,7 @@ const StyledIcon = styled(Box)(({ theme }) => ({
     width: 28,
     height: 28,
     transition: 'all 1s ease-in-out',
-    backgroundColor: theme.palette.grey[400],
+    backgroundColor: '#dfe3e8',
 
     '&.active': {
         backgroundColor: theme.palette.primary.main,
@@ -40,7 +40,7 @@ const StyledIcon = styled(Box)(({ theme }) => ({
 }));
 
 const StyledConnector = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.grey[400],
+    backgroundColor: '#dfe3e8',
     transition: 'background-color 1s ease-in-out, width 1s ease-in-out',
     width: '100px',
     height: '2px', 
@@ -125,7 +125,7 @@ export const IndicadorDePassoMobile = ({ stepIndex, activeStep, isLastStep, isFo
 
             {!isLastStep && (
 
-                <Box sx={{ml:'-20px', mr:'-35px'}}>
+                <Box sx={{ml:'-10px', mr:'-25px'}}>
                 <StyledConnector
 
                     className={isCompleted || isFormCompleted ? 'completed' : ''}

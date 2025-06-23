@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { FormProvider } from 'react-hook-form'; 
+import { FormProvider } from 'react-hook-form';
 
 import { useMultiStepForm } from '../shared/hooks/useMultiStepForm';
 import { DashboardLayout } from '../shared/layouts/DashboardLayout';
@@ -9,6 +9,7 @@ import { Formulario, FormularioProfissional, BarraDeProgresso, BreadcrumbsNavega
 
 import { addCollaborator } from '../shared/services/collaboratorService';
 import { useNotification } from '../shared/contexts/NotificationContext';
+import { Box } from '@mui/material';
 
 export function RegistrarColaboradores() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,7 +47,7 @@ export function RegistrarColaboradores() {
       //showNotification({ message: 'Colaborador registrado com sucesso!', severity: 'success' }); 
 
     } catch (error) {
-      showNotification({ message: 'Ocorreu um erro ao registrar o colaborador. Tente novamente.', severity: 'error', duration: -1 }); 
+      showNotification({ message: 'Ocorreu um erro ao registrar o colaborador. Tente novamente.', severity: 'error', duration: -1 });
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -69,24 +70,28 @@ export function RegistrarColaboradores() {
 
   return (
     <DashboardLayout>
-      <BreadcrumbsNavegacao />
-      <BarraDeProgresso valor={progressValue} />
+      <Box
+        sx={{ paddingInline: '70px' }}>
 
-       <FormProvider {...methods}>
-        <MultiStepFormContainer
-          activeStep={activeStep}
-          steps={steps}
-          isLastStep={isLastStep}
-          isSubmitting={isSubmitting}
-          isFormCompleted={isFormCompleted}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          onSubmit={methods.handleSubmit(onSubmit)} 
-        >
-          {activeStep === 0 && <Formulario />}
-          {activeStep === 1 && <FormularioProfissional />}
-        </MultiStepFormContainer>
-      </FormProvider>
+        <BreadcrumbsNavegacao />
+        <BarraDeProgresso valor={progressValue} />
+
+        <FormProvider {...methods}>
+          <MultiStepFormContainer
+            activeStep={activeStep}
+            steps={steps}
+            isLastStep={isLastStep}
+            isSubmitting={isSubmitting}
+            isFormCompleted={isFormCompleted}
+            handleBack={handleBack}
+            handleNext={handleNext}
+            onSubmit={methods.handleSubmit(onSubmit)}
+          >
+            {activeStep === 0 && <Formulario />}
+            {activeStep === 1 && <FormularioProfissional />}
+          </MultiStepFormContainer>
+        </FormProvider>
+      </Box>
 
 
       <ModalValidacao

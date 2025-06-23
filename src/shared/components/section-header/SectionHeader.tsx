@@ -18,6 +18,7 @@ export const SectionHeader = ({ title, actionButtonText, onActionButtonClick }: 
         color="primary"
         startIcon={<AddIcon />}
         onClick={onActionButtonClick}
+        sx={{paddingTop:'13px', paddingBottom: '13px'}}
       >
         {actionButtonText}
       </Button>

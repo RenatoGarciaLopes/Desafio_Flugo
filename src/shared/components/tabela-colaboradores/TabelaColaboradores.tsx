@@ -17,7 +17,7 @@ export const TabelaColaboradores = ({ collaborators, orderBy, orderDirection, on
   };
 
   return (
-    <TableContainer component={Paper} sx={{ borderRadius: '16px' }}>
+    <TableContainer component={Paper} sx={{ borderRadius: '16px', boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px', }}>
       <Table sx={{ minWidth: 650 }} aria-label="tabela de colaboradores">
         <TableHead sx={{backgroundColor: '#F4F6F8'}}>
           <TableRow>
@@ -106,7 +106,7 @@ export const TabelaColaboradores = ({ collaborators, orderBy, orderDirection, on
                   size="small"
                   sx={{
                   borderRadius: '8px',
-                  fontWeight: 'bold',
+                  fontWeight: 'bold', 
                   backgroundColor: collab.status === 'Ativo' ? theme.palette.status.ativoBg : theme.palette.status.inativoBg,
                   color: collab.status === 'Ativo' ? theme.palette.status.ativoText : theme.palette.status.inativoText
                 }}

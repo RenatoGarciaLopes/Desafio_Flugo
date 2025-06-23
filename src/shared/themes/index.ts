@@ -41,5 +41,27 @@ export const IndexTheme = createTheme({
             `,
         },
 
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '8px',
+                    boxShadow: 'none',
+                    '&:hover': {
+                        boxShadow: 'none',
+                    }
+                },
+            },
+        },
+
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '8px',
+                },
+                notchedOutline: {
+                    borderRadius: '8px',
+                },
+            },
+        },
     },
 });

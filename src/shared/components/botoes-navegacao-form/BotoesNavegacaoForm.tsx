@@ -19,7 +19,7 @@ export const BotoesNavegacaoForm: React.FC<BotoesNavegacaoFormProps> = ({
   onSubmit,
 }) => {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',width: '100%', mt: 4  }}>
       <Button
         variant="text"
         disabled={activeStep === 0 || isSubmitting}
